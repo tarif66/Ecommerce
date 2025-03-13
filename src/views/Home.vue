@@ -1,22 +1,25 @@
 <template>
     <div class="home">
       <div class="products">
-
         <div 
         v-for="(product, index) in this.products" :key="index"
-        class="product" :class="{ inBag: isInBasket(product)}">
-          <div 
-            class="product-image" 
-            :style="{backgroundImage: 'url(' + product.image + ')'}">
+        class="product" :class="{ inBasket: isInBasket(product)}">
+          <img :src="product.image"
+            class="product-image" />
+          <div class="product-info" >
+            <div class="product-title">{{product.name}}</div>
+            <div class="product-collection">{{product.collection}}</div>
+            <div class="product-price">{{product.price.toFixed(2)}}</div>
+            <div class="product-tag" v-if="product.newArrival">New arrival</div>
+            <div class="product-tag" v-if="product.bestSeller">Best seller</div>
+            <div class="product-colors">{{product.colorsAvailable}} couleurs disponibles</div>
+
+            <button v-if="!isInBasket(product)" @click="addToBasket(product)">Add to bag</button>
+            <button v-else 
+              class="remove" 
+              @click="this.$store.dispatch('removeFromBasket', product.id)"
+              >Remove this item</button>
           </div>
-          <h4>{{product.title}}</h4>
-          <p class="price">{{product.price.toFixed(2)}}</p>
-          <button v-if="!isInBasket(product)" @click="addToBasket(product)">Add to bag</button>
-          <button v-else 
-            class="remove" 
-            @click="this.$store.dispatch('removeFromBasket', product.id)"
-            
-            >Remove this item</button>
         </div>
 
       </div>
@@ -51,49 +54,97 @@
     .home {
   
       .products {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 1px;
+        
+       .product {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        width:100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 22px;
+
   
-  
-        .product {
-          flex: 0 0 30%;
-          box-sizing: border-box;  
-          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-          padding: 16px;
-          margin: 8px;
-          height: 360px;
-  
-          @media only screen and (max-width: 769px) {
-            flex: 0 0 40%;
-          }
-  
-          @media only screen and (max-width: 640px) {
-            flex: 0 0 90%;
-          }
-  
-          &.inBag {
+          &.inBasket {
             border: 1px solid #007bff;
           }
           
           .product-image {
-            margin: 20px auto;
-            width: 160px;
-            height: 140px;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
+            width: 100%;
+            height: auto;
           }
+
+          .product-info {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+            .product-title {
+              padding-left: 8px;
+              color: var(--ralph-lauren-blue, #041E3A);
+              font-family: "Times New Roman";
+              font-size: 19px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+            }
+
+            .product-collection {
+              padding-top: 7px;
+              padding-left: 8px;
+              color: var(--ralph-lauren-blue, #041E3A);
+              font-family: Helvetica;
+              font-size: 11px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+                          }
+
+            .product-price {
+              padding-left: 8px;
+              padding-top: 15px;
+              color: var(--ralph-lauren-blue, #041E3A);
+              font-family: Helvetica;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+            }
+
+            .product-tag {
+              padding-left: 8px;
+              padding-top: 6px;
+              color: var(--Greyscale-grey-lighten-3, #666);
+              font-family: Helvetica;
+              font-size: 13px;
+              font-style: normal;
+              font-weight: 700;
+              line-height: normal;
+                          }
+                    
+            .product-colors {
+              padding-left: 8px;
+              padding-top: 14px;
+              color: var(--ralph-lauren-blue, #041E3A);
+              font-family: Helvetica;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: normal;
+                          }
+
+
+
           h4 {
             margin: 22px auto;
             font-size: 12px;
             max-width: 60%;
             font-weight: normal;
-          }
-  
-          p.price {
-            font-size: 20px;
-            font-weight: bold;
           }
   
           button {
@@ -124,4 +175,3 @@
   
   
   </style>
-  

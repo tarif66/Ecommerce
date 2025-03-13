@@ -3,16 +3,73 @@ import axios from 'axios';
 
 export default createStore({
   state: {
-    products: [],
+    products: [
+      {
+        "image": "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-AI710766772062_alternate1?$plpDeskRF$",
+        "name": "The RL Fleece Sweatshirt",
+        "collection": "Polo Ralph Lauren",
+        "price": 169.00,
+        "liked": false,
+        "newArrival": true,
+        "bestSeller": false,
+        "colorsAvailable":3
+      },
+      {
+        "image": "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-AI710775885510_alternate1?$plpDeskRF$",
+        "name": "Cable-Knit Cotton Jumper",
+        "collection": "Polo Ralph Lauren",
+        "price": 199.00,
+        "liked": false,
+        "newArrival": true,
+        "bestSeller": true,
+        "colorsAvailable":2
+      },
+      {
+        "image": "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-1352641_alternate1?$plpDeskRF$",
+        "name": "Slim Fit Mesh Polo Shirt",
+        "collection": "Polo Ralph Lauren",
+        "price": 119.00,
+        "liked": false,
+        "newArrival": false,
+        "bestSeller": true,
+        "colorsAvailable":2
+      },
+      {
+        "image": "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-AI710766772062_alternate1?$plpDeskRF$",
+        "name": "The RL Fleece Sweatshirt",
+        "collection": "Polo Ralph Lauren",
+        "price": 169.00,
+        "liked": false,
+        "newArrival": true,
+        "bestSeller": false,
+        "colorsAvailable":3
+      },
+      {
+        "image": "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-AI710775885510_alternate1?$plpDeskRF$",
+        "name": "Cable-Knit Cotton Jumper",
+        "collection": "Polo Ralph Lauren",
+        "price": 199.00,
+        "liked": false,
+        "newArrival": true,
+        "bestSeller": true,
+        "colorsAvailable":2
+      },
+      {
+        "image": "https://dtcralphlauren.scene7.com/is/image/PoloGSI/s7-1352641_alternate1?$plpDeskRF$",
+        "name": "Slim Fit Mesh Polo Shirt",
+        "collection": "Polo Ralph Lauren",
+        "price": 119.00,
+        "liked": false,
+        "newArrival": false,
+        "bestSeller": true,
+        "colorsAvailable":2
+      },
+    ],
     productsInBasket: [],
     test: []
   },
 
   mutations: {
-
-    loadProducts(state, products) {
-      state.products = products;
-    },  
 
     loadBasket(state, products) {
       state.productsInBasket = products;
@@ -31,15 +88,6 @@ export default createStore({
   },
 
   actions: {
-
-    loadProduct({ commit }) {
-      axios
-      .get('https://fakestoreapi.com/products') 
-      .then(response => {
-        commit('loadProducts', response.data);
-        console.log(response.data);
-    })
-  },
 
     loadBasket({ commit }) {
       if (localStorage.getItem("productsInBasket")){

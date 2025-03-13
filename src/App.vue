@@ -10,7 +10,6 @@
 import { mapState } from 'vuex';
 
 export default {
-
     created() {
       this.$store.dispatch('loadProduct');
       this.$store.dispatch('loadBasket')
@@ -33,8 +32,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  max-width: 1280px;
-  margin: 80px auto;
+  margin: 80px 72px;
 }
 
 #nav {
