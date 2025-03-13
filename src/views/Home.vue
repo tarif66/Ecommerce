@@ -4,8 +4,17 @@
         <div 
         v-for="(product, index) in this.products" :key="index"
         class="product" :class="{ inBasket: isInBasket(product)}">
-          <img :src="product.image"
-            class="product-image" />
+          <div class="p-dynamic-image">     
+            <img :src="product.image"
+              class="product-image" />
+            <div class="product-banner">
+              <button v-if="!isInBasket(product)" @click="addToBasket(product)">ACHAT RAPIDE</button>
+              <button v-else 
+              class="remove" 
+              @click="this.$store.dispatch('removeFromBasket', product.id)"
+              >Remove this item</button>
+            </div>
+          </div>
           <div class="product-info" >
             <div class="product-title">{{product.name}}</div>
             <div class="product-collection">{{product.collection}}</div>
@@ -13,12 +22,6 @@
             <div class="product-tag" v-if="product.newArrival">New arrival</div>
             <div class="product-tag" v-if="product.bestSeller">Best seller</div>
             <div class="product-colors">{{product.colorsAvailable}} couleurs disponibles</div>
-
-            <button v-if="!isInBasket(product)" @click="addToBasket(product)">Add to bag</button>
-            <button v-else 
-              class="remove" 
-              @click="this.$store.dispatch('removeFromBasket', product.id)"
-              >Remove this item</button>
           </div>
         </div>
 
@@ -59,6 +62,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         column-gap: 1px;
+        row-gap: 16px;
         
        .product {
         display: flex;
@@ -138,6 +142,27 @@
               line-height: normal;
                           }
 
+            .p-dynamic-image {
+              position: relative;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+            }
+
+            .product-banner {
+              align-items: center;
+              justify-content:end;
+              display: flex;
+              padding-right: 8px;
+              height: 60px;
+              position: absolute;
+              top: 1;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: rgba(255, 255, 255, 0.5);
+              z-index: 2;
+                          }
 
 
           h4 {
@@ -148,14 +173,19 @@
           }
   
           button {
-            color: #fff;
-            background-color: #007bff;
-            border: 1px solid #007bff;
+            border: 1px solid #4d4d4d;
             border-radius: 100px;
             font-weight: 400;
             text-align: center;
             padding: 8px 16px;
             cursor: pointer;
+            color: #000000;
+            font-family: "Test Founders Grotesk Mono";
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            background-color: transparent;
   
             &:hover {
               opacity: 0.8;
